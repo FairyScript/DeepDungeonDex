@@ -1,6 +1,7 @@
 ﻿
 using ImGuiNET;
 using System.Numerics;
+using static DeepDungeonDex.DataHandler.MobData;
 
 namespace DeepDungeonDex
 {
@@ -32,7 +33,7 @@ namespace DeepDungeonDex
             ImGui.NewLine();
             ImGui.Columns(3, null, false);
             ImGui.Text("Aggro Type:\n");
-            ImGui.Text(mobData.Aggro.ToString());
+            ImGui.Text(TransAggroType(mobData.Aggro));
             ImGui.NextColumn();
             ImGui.Text("Threat:\n");
             switch (mobData.Threat)
@@ -84,6 +85,25 @@ namespace DeepDungeonDex
             ImGui.NewLine();
             ImGui.TextWrapped(mobData.MobNotes);
             ImGui.End();
+        }
+
+        private static string TransAggroType(AggroType type)
+        {
+            switch (type)
+            {
+                case AggroType.Unspecified:
+                    return "不确定";
+                case AggroType.Sight:
+                    return "视野范围";
+                case AggroType.Sound:
+                    return "声音";
+                case AggroType.Proximity:
+                    return "靠近";
+                case AggroType.Boss:
+                    return "Boss";
+                default:
+                    return type.ToString();
+            }
         }
     }
 }
